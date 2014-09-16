@@ -1,6 +1,6 @@
 package com.example.radiationtracker;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,7 @@ public class FirstFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle", 0);
+        title = getArguments().getString("someTitle");
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

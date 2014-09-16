@@ -1,6 +1,6 @@
 package com.example.radiationtracker;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -21,7 +21,33 @@ public class MyActivity extends FragmentActivity {
         ViewPager vpPager = (ViewPager)findViewById(R.id.vpPager);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         vpPager.setAdapter(adapterViewPager);
+
+//        vpPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            //This method will be invoked when the current page is scrolled
+//            @Override
+//            public void onPageScrolled(int position, float position, int positionOffSetPixels) {
+//                //Code goes here
+//            }
+//
+//            //Called when the scroll state changes.
+//            @Override
+//            public void onPageScrollStateChanged(int state){
+//                //Code goes here
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
     }
+
+
 
 
     @Override
