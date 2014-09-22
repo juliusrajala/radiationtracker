@@ -1,5 +1,6 @@
 package com.example.radiationtracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -44,6 +46,7 @@ public class SecondFragment extends Fragment {
         boolean qOpened = false;
         releaseCameraAndPreview();
         mCamera = getCameraInstance();
+        setCameraDisplayOrientation(getActivity(), 1, mCamera);
         mCameraView = view;
         qOpened = (mCamera != null);
 
@@ -56,13 +59,46 @@ public class SecondFragment extends Fragment {
         return qOpened;
     }
 
+    //Kääntää kameran oikein päin tätä kutsutaan etukameran tapauksessa numerolla 1, ainakin
+    //Nexus laitteissa joissa front_facing_camera:n id = 1
+    public static void setCameraDisplayOrientation(Activity activity,
+                                                   int cameraId, android.hardware.Camera camera) {
+        android.hardware.Camera.CameraInfo info =
+                new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(cameraId, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay()
+                .getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0: degrees = 0; break;
+            case Surface.ROTATION_90: degrees = 90; break;
+            case Surface.ROTATION_180: degrees = 180; break;
+            case Surface.ROTATION_270: degrees = 270; break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // compensate the mirror
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        camera.setDisplayOrientation(result);
+    }
+
+    //Käynnistää kameran toimintaan, etsii loopilla etukameran jota pyörittää (se oli takakamera)
     public static Camera getCameraInstance(){
         Camera c = null;
-        try{
-            c = Camera.open(); //Attempt to get camera instance
-        }
-        catch (Exception e){
-            e.printStackTrace();
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        for(int cameraIndex = 0; cameraIndex < Camera.getNumberOfCameras(); cameraIndex++){
+            Camera.getCameraInfo(cameraIndex, cameraInfo);
+            if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                try {
+                    c = Camera.open(cameraIndex); //Attempt to get camera instance
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return c;
     }

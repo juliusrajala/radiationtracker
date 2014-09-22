@@ -17,5 +17,7 @@
             </intent-filter>
         </activity>
     </application>
+    <!--Pakollinen teksti jonka avulla saadaan kamera lainkaan käyttöön-->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
 </manifest>
