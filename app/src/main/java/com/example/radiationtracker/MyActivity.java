@@ -71,7 +71,7 @@ public class MyActivity extends FragmentActivity {
 
     public static class MyPagerAdapter extends FragmentPagerAdapter{
 
-        private static int NUM_ITEMS = 3;
+        private static int NUM_ITEMS = 4;
 
         public MyPagerAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
@@ -87,6 +87,7 @@ public class MyActivity extends FragmentActivity {
                 case 0: return FirstFragment.newInstance(0, "Page #1");
                 case 1: return FirstFragment.newInstance(1, "Page #2");
                 case 2: return SecondFragment.newInstance(2, "Page #3");
+                case 3: return ThirdFragment.newInstance(3, "Page #4");
                 default: return null;
             }
         }
