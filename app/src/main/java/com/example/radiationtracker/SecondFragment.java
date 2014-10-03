@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -100,20 +99,6 @@ public class SecondFragment extends Fragment {
                 try {
                     c = Camera.open(cameraIndex); //Attempt to get camera instance
 
-                    //Koitetaan peilata camera surfacetexture elementiksi.
-
-                    Camera.Size previewSize = c.getParameters().getPreviewSize();
-                    myTexture.setLayoutParams(new FrameLayout.LayoutParams(
-                            previewSize.width, previewSize.height, Gravity.CENTER
-                    ));
-                    /*TODO: http://www.tutorialspoint.com/android/android_textureview.htm
-                    *Rakenna setPreviewTexturen sisälle tuleva surfacenäkymä XMLään surfaceviewin tilalle.
-                    **/
-                    try {
-                        c.setPreviewTexture();
-                    }catch (IOException t){
-
-                    }
 
 
                 } catch (Exception e) {
