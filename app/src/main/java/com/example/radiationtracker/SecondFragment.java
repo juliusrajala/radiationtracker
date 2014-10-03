@@ -98,9 +98,6 @@ public class SecondFragment extends Fragment {
             if(cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 try {
                     c = Camera.open(cameraIndex); //Attempt to get camera instance
-
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
